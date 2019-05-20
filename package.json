@@ -5,7 +5,7 @@
     "build": "gridsome build",
     "develop": "gridsome develop",
     "explore": "gridsome explore",
-    "test": "echo 'Don't test'"
+    "test": "echo 'No Test'"
   },
   "dependencies": {
     "@gridsome/source-contentful": "^0.2.2",
