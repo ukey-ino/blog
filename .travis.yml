@@ -23,6 +23,6 @@ deploy:
   script: netlify deploy -s $NETLIFY_SITE_ID --auth $NETLIFY_PUBLISH_KEY -p --dir ./dist
   skip_cleanup: true
   on:
-    branche: release
+    branch: release
 
 
