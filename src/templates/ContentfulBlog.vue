@@ -7,7 +7,8 @@
       <g-link :to="$page.contentfulBlog.path">
         {{ $page.contentfulBlog.path }}
       </g-link>
-      <p>content: {{ $page.contentfulBlog.content }}</p>
+      <p>content: </p>
+      <p><vue-markdown> {{ $page.contentfulBlog.content }} </vue-markdown> </p>
     </div>
   </Layout>
 </template>
