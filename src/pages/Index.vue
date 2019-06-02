@@ -1,33 +1,39 @@
 <template>
   <Layout>
-    
-    <!-- Learn how to use images here: https://gridsome.org/docs/images -->
-    <g-image alt="Example image" src="~/favicon.png" width="135" />
-    
-    <h1>Hello, world!</h1>
-   
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur excepturi labore tempore expedita, et iste tenetur suscipit explicabo! Dolores, aperiam non officia eos quod asperiores
-    </p>
-
-    <p class="home-links">
-      <a href="https://gridsome.org/docs" target="_blank" rel="noopener">Gridsome Docs</a>
-      <a href="https://github.com/gridsome/gridsome" target="_blank" rel="noopener">GitHub</a>
-    </p>
-
+    <h1>コンテンツ一覧</h1>
+    <ul v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
+      <li>
+        <p>title: {{ edge.node.title }}</p>
+        <p>slug: {{ edge.node.slug }}</p>
+        <p>path:
+          <g-link :to="edge.node.path">
+            {{ edge.node.path }}
+          </g-link>
+        </p>
+        <p>content: {{ edge.node.content }}</p>
+      </li>
+    </ul>
   </Layout>
 </template>
 
-<script>
-export default {
-  metaInfo: {
-    title: 'Hello, world!'
+<page-query>
+query Blog ( $page: Int) {
+  allContentfulBlog( perPage: 6, order: DESC, page: $page ) @paginate {
+    pageInfo {
+      totalPages
+      currentPage
+    }
+    totalCount
+    edges {
+      node {
+        id
+        path
+        title
+        slug
+        content
+        date( format: "YYYY.MM.DD", locale: "ja" )
+      }
+    }
   }
 }
-</script>
-
-<style>
-.home-links a {
-  margin-right: 1rem;
-}
-</style>
+</page-query>
