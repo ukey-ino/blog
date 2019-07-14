@@ -1,15 +1,16 @@
 <template>
-  <div class="layout">
-    <header class="header">
-      <strong>
-        <g-link to="/">{{ $static.metaData.siteName }}</g-link>
-      </strong>
-      <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-      </nav>
-    </header>
-    <slot/>
-  </div>
+  <v-app>
+    <v-toolbar>
+      <v-toolbar-title>{{ $static.metaData.siteName }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn flat to="/" >Home</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    <v-container>
+      <slot/>
+    </v-container>
+  </v-app>
 </template>
 
 <static-query>

@@ -1,19 +1,20 @@
 <template>
   <Layout>
     <h1>コンテンツ一覧</h1>
-    <ul v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
-      <li>
-        <g-image :src=coverUrl(edge.node.cover) />
-        <p>title: {{ edge.node.title }}</p>
-        <p>slug: {{ edge.node.slug }}</p>
-        <p>path:
-          <g-link :to="edge.node.path">
-            {{ edge.node.path }}
-          </g-link>
-        </p>
-        <p>content: {{ edge.node.content }}</p>
-      </li>
-    </ul>
+    <v-card v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
+        <v-img aspect-ratio="10"  lazy-src :src="coverUrl(edge.node.cover)"></v-img>
+        
+        <v-card-title>
+          <div>
+            <h3 class="headline mb-0">{{ edge.node.title }}</h3>
+            <div>{{ summaryText(edge.node.content) }}</div>
+          </div>
+        </v-card-title>
+
+        <v-card-actions>
+          <v-btn flat color="orange" :to="edge.node.path">詳細</v-btn>
+        </v-card-actions>
+    </v-card>
   </Layout>
 </template>
 
@@ -26,7 +27,14 @@
           return "https:" + coverContent.file.url + "?w=200";
         }
         // TODO: reference local file
-        return "https://placehold.it/150x150.png";
+        return "https://placehold.it/150x150.png?text=NoImage";
+      },
+      
+      summaryText: function(text) {
+        if (text.length >= 30 ) {
+          return text.substring(0,30) + "...";
+        }
+        return text;
       }
     }
   }

@@ -5,7 +5,12 @@ import DefaultLayout from '~/layouts/Default.vue'
 
 import VueMarkdown from 'vue-markdown'
 
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
 export default function (Vue, { router, head, isClient }) {
+  Vue.use(Vuetify)
+
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
   Vue.component('vue-markdown', VueMarkdown)
