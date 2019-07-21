@@ -7,6 +7,7 @@
         <v-card-title>
           <div>
             <h3 class="headline mb-0">{{ edge.node.title }}</h3>
+            <span class="grey--text">created at {{ edge.node.createdate }}</span>
             <div>{{ summaryText(edge.node.content) }}</div>
           </div>
         </v-card-title>
@@ -43,7 +44,7 @@
 
 <page-query>
 query Blog ( $page: Int) {
-  allContentfulBlog( perPage: 6, order: DESC, page: $page ) @paginate {
+  allContentfulBlog( perPage: 6, sortBy: "createdate", order: DESC, page: $page ) @paginate {
     pageInfo {
       totalPages
       currentPage
@@ -61,6 +62,7 @@ query Blog ( $page: Int) {
             url
           }
         }
+        createdate( format: "YYYY.MM.DD" )
         date( format: "YYYY.MM.DD", locale: "ja" )
       }
     }
