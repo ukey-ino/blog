@@ -3,6 +3,7 @@
     <v-content>
       <v-container>
         <h1>{{ $page.contentfulBlog.title }}</h1>
+        <span class="grey--text">created at {{ $page.contentfulBlog.createdate }}</span>
         <div>
           <g-image :src="coverUrl($page.contentfulBlog.cover)" />
           <p><vue-markdown> {{ $page.contentfulBlog.content }} </vue-markdown> </p>
@@ -40,6 +41,7 @@
           url
         }
       }
+      createdate(format: "YYYY.MM.DD", locale: "ja")
       date(format: "YYYY.MM.DD", locale: "ja")
     }
   }
