@@ -6,7 +6,7 @@ import DefaultLayout from '~/layouts/Default.vue'
 import VueMarkdown from 'vue-markdown'
 
 import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
+import '../node_modules/vuetify/dist/vuetify.min.css'
 
 export default function (Vue, { router, head, isClient }) {
   Vue.use(Vuetify)
