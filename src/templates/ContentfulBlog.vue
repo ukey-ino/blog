@@ -2,30 +2,36 @@
   <Layout>
     <v-content>
       <v-container>
-        <h1>{{ $page.contentfulBlog.title }}</h1>
-        <span class="grey--text">created at {{ $page.contentfulBlog.createdate }}</span>
-        <div>
-          <g-image :src="coverUrl($page.contentfulBlog.cover)" />
-          <p><vue-markdown> {{ $page.contentfulBlog.content }} </vue-markdown> </p>
-        </div>
+        <v-card>
+          <v-card-text>
+            <h1>{{ $page.contentfulBlog.title }}</h1>
+            <span class="grey--text">created at {{ $page.contentfulBlog.createdate }}</span>
+            <div>
+              <g-image :src="coverUrl($page.contentfulBlog.cover)" />
+              <p>
+                <vue-markdown>{{ $page.contentfulBlog.content }}</vue-markdown>
+              </p>
+            </div>
+          </v-card-text>
+        </v-card>
       </v-container>
     </v-content>
   </Layout>
 </template>
 
 <script>
-  export default {
-    methods: {
-      coverUrl: function (coverContent) {
-        if (coverContent) {
-          // TODO: resized by fixed width now.
-          return "https:" + coverContent.file.url + "?w=200";
-        }
-        // TODO: reference local file
-        return "https://placehold.it/150x150.png";
+export default {
+  methods: {
+    coverUrl: function(coverContent) {
+      if (coverContent) {
+        // TODO: resized by fixed width now.
+        return "https:" + coverContent.file.url + "?w=200";
       }
+      // TODO: reference local file
+      return "https://placehold.it/150x150.png";
     }
   }
+};
 </script>
 
 <page-query>
