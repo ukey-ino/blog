@@ -13,5 +13,8 @@
     "gridsome": "^0.6.7",
     "vue-markdown": "^2.2.4",
     "vuetify": "^1.5.16"
+  },
+  "devDependencies": {
+    "webpack-node-externals": "^1.7.2"
   }
 }
