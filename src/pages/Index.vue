@@ -1,6 +1,11 @@
 <template>
   <Layout>
     <h1>コンテンツ一覧</h1>
+    <v-pagination
+      v-model="currentPage"
+      :length="totalPages"
+    />
+    <div>{{initialize()}}</div>
     <v-card v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
         <v-img aspect-ratio="10"  lazy-src :src="coverUrl(edge.node.cover)"></v-img>
         
@@ -16,11 +21,21 @@
           <v-btn flat color="orange" :to="edge.node.path">詳細</v-btn>
         </v-card-actions>
     </v-card>
+    <v-pagination
+      v-model="currentPage"
+      :length="totalPages"
+    />
   </Layout>
 </template>
 
 <script>
+
+  import { Pager } from "gridsome";
+
   export default {
+    components: {
+      Pager
+    },
     methods: {
       coverUrl: function (coverContent) {
         if (coverContent) {
@@ -36,6 +51,33 @@
           return text.substring(0,30) + "...";
         }
         return text;
+      },
+
+      getCurrentPage: function() {
+        this.$data.currentPage = this.$page.allContentfulBlog.pageInfo.currentPage;
+      },
+      getTotalPages: function() {
+        this.$data.totalPages = this.$page.allContentfulBlog.pageInfo.totalPages;
+      },
+      initialize: function() {
+        this.getCurrentPage();
+        this.getTotalPages();
+      }
+    },
+    computed: {
+    },
+    data: () => ({
+      currentPage: 1,
+      totalPages: 1,
+    }),
+    watch: {
+      '$route': 'initialize',
+      currentPage: function(newNumber) {
+        let pathToGo = "/";
+        if (newNumber != 1) {
+          pathToGo = "/" + newNumber;
+        };
+        this.$router.push({ path: pathToGo});
       }
     }
   }
@@ -69,3 +111,8 @@ query Blog ( $page: Int) {
   }
 }
 </page-query>
+
+
+<style>
+  .message { color: #42b983; }
+</style>
