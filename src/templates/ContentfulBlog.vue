@@ -2,6 +2,12 @@
   <Layout>
     <v-content>
       <v-container>
+
+        <v-btn v-on:click="goToIndex">
+          <v-icon>arrow_back</v-icon>
+          <div class="hidden-sm-and-down">一覧に戻る</div>
+        </v-btn>
+
         <v-card>
           <v-card-text>
             <h1>{{ $page.contentfulBlog.title }}</h1>
@@ -29,7 +35,20 @@ export default {
       }
       // TODO: reference local file
       return "https://placehold.it/150x150.png";
+    },
+
+    goToIndex: function() {
+      let goTo = this.referer;
+      this.$router.push({ path: goTo });
     }
+  },
+  data: () => ({
+    referer: null
+  }),
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.referer = from.path;
+    });
   }
 };
 </script>
