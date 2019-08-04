@@ -1,0 +1,169 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+executors:
+
+  default:
+    # build環境
+    working_directory: ~/workspace
+    docker:
+      # 開発環境に合わせること
+      - image: circleci/node:11
+
+  for_awss3_orbs:
+    # awss3 orbs用
+    working_directory: ~/workspace
+    docker:
+      - image: circleci/python:2.7
+
+commands:
+  restore_node-modules:
+    steps:
+      - restore_cache:
+          keys: 
+            - yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
+  save_node-modules:
+    steps:
+      - save_cache:
+          paths:
+            - node_modules
+          key: yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
+orbs:
+  aws-s3: circleci/aws-s3@1.0.0
+  slack: circleci/slack@3.3.0
+
+jobs:
+
+  setup:
+    executor: default
+    steps:
+      - checkout
+      - restore_node-modules
+      - run: 
+          name: Install dependencies
+          command: yarn install
+      - save_node-modules
+
+  build:
+    # 共通鍵(encrypted_jotrqryt4swx_key)と
+    # 初期ベクトル(encrypted_jotrqryt4swx_iv)は環境変数に記載すること
+    parameters:
+      env:
+        type: string
+        enum: ["development", "production"]
+    executor: default
+    steps:
+      - checkout
+      - restore_node-modules
+      - run:
+          name: decrypt
+          command: |
+            openssl aes-256-cbc -K $encrypted_jotrqryt4swx_key -iv $encrypted_jotrqryt4swx_iv -in env-ci.tar.enc -out env-ci.tar -d
+            tar xvf env-ci.tar
+            cp .env.blog-<< parameters.env >> .env.production
+      - run:
+          name: Build
+          command: yarn build
+      
+      - run:
+          name: Check dist
+          command: ls -la dist
+      
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+    
+  deploy_netlify:
+    # staging用
+    # NETLIFY_SITE_ID: 環境変数に定義する
+    # NETLIFY_PUBLISH_KEY: 環境変数に定義する
+    executor: default
+    steps:
+
+      - attach_workspace:
+          at: .
+         
+      - run:
+          name: deploy to netlify
+          command: |
+            npx netlify-cli deploy -s $NETLIFY_SITE_ID --auth $NETLIFY_PUBLISH_KEY -p --dir ./dist
+
+  deploy_s3:
+    # 本番用
+    # S3_BUCKET_NAME: 環境変数に定義する(s3:// のプレフィックスつける)
+    executor: for_awss3_orbs
+    steps:
+
+      - attach_workspace:
+          at: .
+
+      - aws-s3/sync:
+          from: ./dist
+          to: $S3_BUCKET_NAME
+          overwrite: true
+          
+workflows:
+  setup_and_deploy:
+    jobs:
+
+      - setup:
+          filters:
+            branches:
+              only: 
+                - release
+                - master
+
+      - build:
+          name: build_dev
+          env: "development"
+          requires:
+            - setup
+          filters:
+            branches:
+              only: release
+
+      - build:
+          name: build_prod
+          env: "production"
+          requires:
+            - setup
+          filters:
+            branches:
+              only: master
+
+      - deploy_netlify:
+          name: deploy_dev
+          requires:
+            - build_dev
+          filters:
+            branches:
+              only: release
+
+      - before_deploy:
+          type: approval
+          requires:
+            - build_prod
+
+      - slack/approval-notification:
+          # SLACK_WEBHOOK_URL: 環境変数に定義する(Incoming Webhook URL)
+          name: notify
+          message: build completed. Deploy ?
+          webhook: $SLACK_WEBHOOK_URL
+          requires:
+            - build_prod
+          filters:
+            branches:
+              only: master
+
+      - deploy_s3:
+          name: deploy_prod
+          requires:
+            - before_deploy
+          filters:
+            branches:
+              only: master
