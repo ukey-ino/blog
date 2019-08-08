@@ -62,8 +62,8 @@ jobs:
       - run:
           name: decrypt
           command: |
-            openssl aes-256-cbc -K $encrypted_jotrqryt4swx_key -iv $encrypted_jotrqryt4swx_iv -in env-ci.tar.enc -out env-ci.tar -d
-            tar xvf env-ci.tar
+            openssl aes-256-cbc -K $encrypted_jotrqryt4swx_key -iv $encrypted_jotrqryt4swx_iv -in env.tar.enc -out env.tar -d
+            tar xvf env.tar
             cp .env.blog-<< parameters.env >> .env.production
       - run:
           name: Build
