@@ -2,24 +2,27 @@
   <Layout>
     <v-content>
       <v-container>
-
-        <v-btn v-on:click="goToIndex">
-          <v-icon>arrow_back</v-icon>
-          <div class="hidden-sm-and-down">一覧に戻る</div>
-        </v-btn>
-
-        <v-card>
-          <v-card-text>
-            <h1>{{ $page.contentfulBlog.title }}</h1>
-            <span class="grey--text">created at {{ $page.contentfulBlog.createdate }}</span>
-            <div>
-              <g-image :src="coverUrl($page.contentfulBlog.cover)" />
-              <p>
-                <vue-markdown>{{ $page.contentfulBlog.content }}</vue-markdown>
-              </p>
-            </div>
-          </v-card-text>
-        </v-card>
+        <v-layout>
+          <v-flex xs12>
+            <v-btn v-on:click="goToIndex">
+              <v-icon>arrow_back</v-icon>
+              <div class="hidden-sm-and-down">一覧に戻る</div>
+            </v-btn>
+  
+            <v-card>
+              <v-card-text>
+                <h1>{{ $page.contentfulBlog.title }}</h1>
+                <span class="grey--text">created at {{ $page.contentfulBlog.createdate }}</span>
+                <div>
+                  <g-image :src="coverUrl($page.contentfulBlog.cover)" />
+                  <p>
+                    <vue-markdown>{{ $page.contentfulBlog.content }}</vue-markdown>
+                  </p>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-content>
   </Layout>

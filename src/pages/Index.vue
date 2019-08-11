@@ -1,30 +1,37 @@
 <template>
   <Layout>
-    <h1>コンテンツ一覧</h1>
-    <v-pagination
-      v-model="currentPage"
-      :length="totalPages"
-    />
     <div>{{initialize()}}</div>
-    <v-card v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
-        <v-img aspect-ratio="10"  lazy-src :src="coverUrl(edge.node.cover)"></v-img>
-        
-        <v-card-title>
-          <div>
-            <h3 class="headline mb-0">{{ edge.node.title }}</h3>
-            <span class="grey--text">created at {{ edge.node.createdate }}</span>
-            <div>{{ summaryText(edge.node.content) }}</div>
-          </div>
-        </v-card-title>
-
-        <v-card-actions>
-          <v-btn flat color="orange" :to="edge.node.path">詳細</v-btn>
-        </v-card-actions>
-    </v-card>
-    <v-pagination
-      v-model="currentPage"
-      :length="totalPages"
-    />
+    <v-layout>
+      <v-flex xs12>
+        <h1>コンテンツ一覧</h1>
+        <v-pagination
+          v-model="currentPage"
+          :length="totalPages"
+        />
+        <div v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
+          <v-card>
+              <v-img aspect-ratio="10"  lazy-src :src="coverUrl(edge.node.cover)"></v-img>
+  
+              <v-card-title>
+                <div>
+                  <h3 class="headline mb-0">{{ edge.node.title }}</h3>
+                  <span class="grey--text">created at {{ edge.node.createdate }}</span>
+                  <div>{{ summaryText(edge.node.content) }}</div>
+                </div>
+              </v-card-title>
+  
+              <v-card-actions>
+                <v-btn flat color="orange" :to="edge.node.path">詳細</v-btn>
+              </v-card-actions>
+          </v-card>
+          <p></p>
+        </div>
+        <v-pagination
+          v-model="currentPage"
+          :length="totalPages"
+        />
+      </v-flex>
+    </v-layout>
   </Layout>
 </template>
 
