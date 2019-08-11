@@ -5,7 +5,7 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: 'i-ukey Blog',
+  siteName: process.env.SITE_TITLE,
   plugins: [
 	  {
       use: '@gridsome/source-contentful',
