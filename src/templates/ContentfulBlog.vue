@@ -21,6 +21,12 @@
                 </div>
               </v-card-text>
             </v-card>
+
+            <v-btn v-on:click="goToIndex">
+              <v-icon>arrow_back</v-icon>
+              <div class="hidden-sm-and-down">一覧に戻る</div>
+            </v-btn>
+
           </v-flex>
         </v-layout>
       </v-container>
