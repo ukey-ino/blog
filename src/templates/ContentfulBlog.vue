@@ -30,6 +30,11 @@
 
 <script>
 export default {
+  metaInfo() {
+    return {
+      title: this.$page.contentfulBlog.title
+    }
+  },
   methods: {
     coverUrl: function(coverContent) {
       if (coverContent) {
