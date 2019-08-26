@@ -39,7 +39,21 @@
 
   import { Pager } from "gridsome";
 
-  export default {
+  export default  {
+    metaInfo() {
+      return {
+        titleTemplate: null,
+        meta: [
+          { name: 'og:type', content: 'website'},
+          { name: 'og:title', content: this.$static.metaData.siteName },
+          { name: 'og:description', content: this.$static.metaData.siteDescription },
+          { name: 'og:url', 
+            content: this.$static.metaData.siteUrl + "/" + 
+            ( this.$page.allContentfulBlog.pageInfo.currentPage == 1 ? "" : this.$page.allContentfulBlog.pageInfo.currentPage ) },
+          { name: 'og:site_url', content: this.$static.metaData.siteUrl }
+        ]
+      }
+    },
     components: {
       Pager
     },
@@ -69,7 +83,12 @@
       initialize: function() {
         this.getCurrentPage();
         this.getTotalPages();
+      },
+
+      currentPageUrl: function() {
+
       }
+
     },
     computed: {
     },
@@ -118,6 +137,16 @@ query Blog ( $page: Int) {
   }
 }
 </page-query>
+
+<static-query>
+query {
+  metaData {
+    siteName
+    siteDescription
+    siteUrl
+  }
+}
+</static-query>
 
 
 <style>
