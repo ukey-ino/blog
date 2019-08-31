@@ -39,19 +39,7 @@
 
   import { Pager } from "gridsome";
 
-  export default  {
-    metaInfo() {
-      return {
-        titleTemplate: null,
-        meta: [
-          { name: 'og:type', content: 'website'},
-          { name: 'og:title', content: this.$static.metaData.siteName },
-          { name: 'og:description', content: this.$static.metaData.siteDescription },
-          { name: 'og:url', content: location.origin },
-          { name: 'og:site_url', content: this.$static.metaData.siteUrl }
-        ]
-      }
-    },
+  export default {
     components: {
       Pager
     },
@@ -130,16 +118,6 @@ query Blog ( $page: Int) {
   }
 }
 </page-query>
-
-<static-query>
-query {
-  metaData {
-    siteName
-    siteDescription
-    siteUrl
-  }
-}
-</static-query>
 
 
 <style>
