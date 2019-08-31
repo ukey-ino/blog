@@ -38,7 +38,14 @@
 export default {
   metaInfo() {
     return {
-      title: this.$page.contentfulBlog.title
+      title: this.$page.contentfulBlog.title,
+      meta: [
+        { name: 'og:type', content: 'article'},
+        { name: 'og:title', content: this.$static.metaData.siteName },
+        { name: 'og:description', content: this.$static.metaData.siteDescription },
+        { name: 'og:url', content: location.origin },
+        { name: 'og:site_url', content: this.$static.metaData.siteUrl }
+      ]
     }
   },
   methods: {
@@ -85,3 +92,13 @@ export default {
     }
   }
 </page-query>
+
+<static-query>
+query {
+  metaData {
+    siteName
+    siteDescription
+    siteUrl
+  }
+}
+</static-query>
