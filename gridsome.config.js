@@ -6,8 +6,6 @@
 
 module.exports = {
   siteName: process.env.SITE_TITLE,
-  siteDescription: process.env.SITE_DESCRIPTION,
-  siteUrl: process.env.SITE_URL,
   plugins: [
 	  {
       use: '@gridsome/source-contentful',
