@@ -4,7 +4,7 @@
       <v-toolbar-title>{{ $static.metaData.siteName }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat to="/" >Home</v-btn>
+        <v-btn flat to="/" ><v-icon>home</v-icon><div class="hidden-sm-and-down">&nbsp; Home</div></v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-container>
