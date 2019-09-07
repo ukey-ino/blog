@@ -5,7 +5,11 @@
     "build": "gridsome build",
     "develop": "gridsome develop",
     "explore": "gridsome explore",
-    "test": "echo 'No Test'"
+    "test": "echo 'No Test'",
+    "change-dev-content": "cp -p .env.blog-development .env.development",
+    "change-prod-content": "cp -p .env.blog-production .env.development",
+    "dev-develop": "yarn change-dev-content && yarn develop",
+    "prod-develop": "yarn change-prod-content && yarn develop"
   },
   "dependencies": {
     "@gridsome/source-contentful": "^0.4.0",

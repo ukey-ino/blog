@@ -21,6 +21,12 @@
                 </div>
               </v-card-text>
             </v-card>
+
+            <v-btn v-on:click="goToIndex">
+              <v-icon>arrow_back</v-icon>
+              <div class="hidden-sm-and-down">一覧に戻る</div>
+            </v-btn>
+
           </v-flex>
         </v-layout>
       </v-container>
@@ -30,6 +36,21 @@
 
 <script>
 export default {
+  metaInfo() {
+    return {
+      title: this.$page.contentfulBlog.title,
+      meta: [
+        { name: 'og:type', content: 'article'},
+        { name: 'og:title', content: this.$static.metaData.siteName },
+        { name: 'og:description', content: this.$static.metaData.siteDescription },
+        { name: 'og:url', 
+          content: this.$static.metaData.siteUrl + "/blog/" + this.$page.contentfulBlog.slug },
+        { name: 'og:site_url', content: this.$static.metaData.siteUrl },
+        { name: 'og:image', content: this.$static.metaData.siteUrl + "/images/site_image.jpg"},
+        { name: 'twitter:card', content: 'summary'}
+      ]
+    }
+  },
   methods: {
     coverUrl: function(coverContent) {
       if (coverContent) {
@@ -74,3 +95,13 @@ export default {
     }
   }
 </page-query>
+
+<static-query>
+query {
+  metaData {
+    siteName
+    siteDescription
+    siteUrl
+  }
+}
+</static-query>

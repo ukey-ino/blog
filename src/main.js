@@ -9,6 +9,10 @@ import VueMarkdown from 'vue-markdown'
 
 export default function (Vue, { router, head, isClient }) {
 
+  head.htmlAttrs = {
+    prefix: 'og: http://ogp.me/ns#'
+  }
+  
   head.link.push({
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
