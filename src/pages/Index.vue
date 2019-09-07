@@ -50,7 +50,8 @@
           { name: 'og:url', 
             content: this.$static.metaData.siteUrl + "/" + 
             ( this.$page.allContentfulBlog.pageInfo.currentPage == 1 ? "" : this.$page.allContentfulBlog.pageInfo.currentPage ) },
-          { name: 'og:site_url', content: this.$static.metaData.siteUrl }
+          { name: 'og:site_url', content: this.$static.metaData.siteUrl },
+          { name: 'og:image', content: this.$static.metaData.siteUrl + "/images/site_image.jpg"}
         ]
       }
     },
