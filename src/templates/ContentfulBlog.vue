@@ -46,7 +46,7 @@ export default {
         { name: 'og:url', 
           content: this.$static.metaData.siteUrl + "/blog/" + this.$page.contentfulBlog.slug },
         { name: 'og:site_url', content: this.$static.metaData.siteUrl },
-        { name: 'og:image', content: this.$static.metaData.siteUrl + "/images/site_image.jpg"},
+        { name: 'og:image', content: this.$static.metaData.siteUrl + "images/site_image.jpg"},
         { name: 'twitter:card', content: 'summary'}
       ]
     }
