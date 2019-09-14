@@ -16,7 +16,7 @@
                 <div>
                   <g-image :src="coverUrl($page.contentfulBlog.cover)" />
                   <p>
-                    <vue-markdown>{{ $page.contentfulBlog.content }}</vue-markdown>
+                    <vue-markdown :source="$page.contentfulBlog.content"></vue-markdown>
                   </p>
                 </div>
               </v-card-text>
@@ -42,7 +42,7 @@ export default {
       meta: [
         { name: 'og:type', content: 'article'},
         { name: 'og:title', content: this.$static.metaData.siteName },
-        { name: 'og:description', content: this.$static.metaData.siteDescription },
+        { name: 'og:description', content: this.$page.contentfulBlog.title },
         { name: 'og:url', 
           content: this.$static.metaData.siteUrl + "/blog/" + this.$page.contentfulBlog.slug },
         { name: 'og:site_url', content: this.$static.metaData.siteUrl },

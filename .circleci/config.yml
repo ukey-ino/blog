@@ -94,6 +94,10 @@ jobs:
           name: deploy to netlify
           command: |
             npx netlify-cli deploy -s $NETLIFY_SITE_ID --auth $NETLIFY_PUBLISH_KEY -p --dir ./dist
+      
+      - slack/status:
+          webhook: $SLACK_WEBHOOK_URL
+
 
   deploy_s3:
     # 本番用
@@ -108,6 +112,9 @@ jobs:
           from: ./dist
           to: $S3_BUCKET_NAME
           overwrite: true
+
+      - slack/status:
+          webhook: $SLACK_WEBHOOK_URL
           
 workflows:
   setup_and_deploy:
