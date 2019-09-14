@@ -16,7 +16,7 @@
                 <div>
                   <g-image :src="coverUrl($page.contentfulBlog.cover)" />
                   <p>
-                    <vue-markdown>{{ $page.contentfulBlog.content }}</vue-markdown>
+                    <vue-markdown :source="$page.contentfulBlog.content"></vue-markdown>
                   </p>
                 </div>
               </v-card-text>
