@@ -116,7 +116,7 @@ jobs:
 
       - run:
           command: |
-            aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "*"
+            aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
 
       - slack/status:
           webhook: $SLACK_WEBHOOK_URL
