@@ -29,7 +29,7 @@
         </div>
       </v-list>
     </v-navigation-drawer>
-    <v-container>
+    <v-container fluid>
       <slot/>
     </v-container>
   </v-app>
@@ -70,7 +70,7 @@ body {
 }
 
 .layout {
-  max-width: 760px;
+  max-width: 1280px;
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
