@@ -1,16 +1,15 @@
 <template>
   <Layout>
-    <div>{{initialize()}}</div>
+    {{initialize()}}
     <v-layout wrap>
       <v-flex xs12>
         <h1>コンテンツ一覧</h1>
         <v-pagination v-model="currentPage" :length="totalPages" />
       </v-flex>
-      <div>{{ cardHeight }}</div>
       <v-container grid-list-md>
         <v-layout ma-1 row wrap>
           <v-flex xs12 md4 v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
-            <v-card height="350px">
+            <v-card :height="cardHeight">
               <v-layout column fill-height>
                 <v-img aspect-ratio="7" max-height="50px" lazy-src :src="coverUrl(edge.node.cover)"></v-img>
 
@@ -100,7 +99,17 @@ export default {
 
     currentPageUrl: function() {}
   },
-  computed: {},
+  computed: {
+    cardHeight: function() {
+      switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return '250px'
+          case 'sm': return '250px'
+          case 'md': return '350px'
+          case 'lg': return '350px'
+          case 'xl': return '350px'
+        }
+    }
+  },
   data: () => ({
     currentPage: 1,
     totalPages: 1
