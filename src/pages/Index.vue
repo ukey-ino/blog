@@ -17,8 +17,8 @@
                   <div>
                     <h3 class="headline mb-0">{{ summaryTitle(edge.node.title) }}</h3>
                     <span class="grey--text">created at {{ edge.node.createdate }}</span>
-                    <div v-if="isMobileView" >{{ summaryMobileView(edge.node.content) }}</div>
-                    <div v-if="isLargeView" >{{ summaryLargeView(edge.node.content) }}</div>
+                    <div v-show="isMobileView" >{{ summaryMobileView(edge.node.content) }}</div>
+                    <div v-show="isLargeView" >{{ summaryLargeView(edge.node.content) }}</div>
                   </div>
                 </v-card-title>
 
