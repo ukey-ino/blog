@@ -15,9 +15,10 @@
 
                 <v-card-title>
                   <div>
-                    <h3 class="headline mb-0">{{ edge.node.title }}</h3>
+                    <h3 class="headline mb-0">{{ summaryTitle(edge.node.title) }}</h3>
                     <span class="grey--text">created at {{ edge.node.createdate }}</span>
-                    <div>{{ summaryText(edge.node.content) }}</div>
+                    <div v-if="isMobileView" >{{ summaryMobileView(edge.node.content) }}</div>
+                    <div v-if="isLargeView" >{{ summaryLargeView(edge.node.content) }}</div>
                   </div>
                 </v-card-title>
 
@@ -79,11 +80,23 @@ export default {
       return "https://placehold.it/150x150.png?text=NoImage";
     },
 
-    summaryText: function(text) {
-      if (text.length >= 30) {
-        return text.substring(0, 30) + "...";
+    shortenText: function(maxLength, text) {
+      if (text.length >= maxLength) {
+        return text.substring(0, maxLength) + "...";
       }
       return text;
+    },
+
+    summaryMobileView: function(text) {
+      return this.shortenText(30, text);
+    },
+
+    summaryLargeView: function(text) {
+      return this.shortenText(60, text);
+    },
+
+    summaryTitle: function(text) {
+      return this.shortenText(23, text);
     },
 
     getCurrentPage: function() {
@@ -108,7 +121,13 @@ export default {
           case 'lg': return '350px'
           case 'xl': return '350px'
         }
-    }
+    },
+    isMobileView: function() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+    isLargeView: function() {
+      return this.$vuetify.breakpoint.mdAndUp;
+    },
   },
   data: () => ({
     currentPage: 1,
