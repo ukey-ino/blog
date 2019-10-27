@@ -24,7 +24,7 @@
         >
           <v-list-tile :to="edge.node.path">
             <v-list-tile-title>{{ edge.node.title }}</v-list-tile-title>
-            <v-list-tile-subtitle>{{ edge.node.createdate }}</v-list-tile-subtitle>
+            <v-list-tile-sub-title>{{ edge.node.createdate }}</v-list-tile-sub-title>
           </v-list-tile>
         </div>
       </v-list>
@@ -72,8 +72,8 @@ body {
 .layout {
   max-width: 1280px;
   margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .header {
