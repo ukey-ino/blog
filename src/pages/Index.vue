@@ -6,7 +6,7 @@
         <h1>コンテンツ一覧</h1>
         <v-pagination v-model="currentPage" :length="totalPages" />
       </v-flex>
-      <v-container grid-list-md>
+      <v-container grid-list-md fluid>
         <v-layout ma-1 row wrap>
           <v-flex xs12 md4 v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
             <v-card :height="cardHeight">
@@ -115,8 +115,8 @@ export default {
   computed: {
     cardHeight: function() {
       switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return '250px'
-          case 'sm': return '250px'
+          case 'xs': return '300px'
+          case 'sm': return '300px'
           case 'md': return '350px'
           case 'lg': return '350px'
           case 'xl': return '350px'
@@ -190,4 +190,9 @@ query {
 .message {
   color: #42b983;
 }
+
+.container {
+  padding: 0;
+}
+
 </style>
