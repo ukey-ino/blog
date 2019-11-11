@@ -1,12 +1,11 @@
 <template>
   <Layout>
-    {{initialize()}}
     <v-layout wrap>
       <v-flex xs12>
         <h1>コンテンツ一覧</h1>
         <v-pagination v-model="currentPage" :length="totalPages" />
       </v-flex>
-      <v-container grid-list-md>
+      <v-container grid-list-md fluid>
         <v-layout ma-1 row wrap>
           <v-flex xs12 md4 v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
             <v-card :height="cardHeight">
@@ -98,25 +97,16 @@ export default {
     summaryTitle: function(text) {
       return this.shortenText(23, text);
     },
-
-    getCurrentPage: function() {
-      this.$data.currentPage = this.$page.allContentfulBlog.pageInfo.currentPage;
-    },
-    getTotalPages: function() {
+  },
+  created () {
+    this.$data.currentPage = this.$page.allContentfulBlog.pageInfo.currentPage;
       this.$data.totalPages = this.$page.allContentfulBlog.pageInfo.totalPages;
-    },
-    initialize: function() {
-      this.getCurrentPage();
-      this.getTotalPages();
-    },
-
-    currentPageUrl: function() {}
   },
   computed: {
     cardHeight: function() {
       switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return '250px'
-          case 'sm': return '250px'
+          case 'xs': return '300px'
+          case 'sm': return '300px'
           case 'md': return '350px'
           case 'lg': return '350px'
           case 'xl': return '350px'
@@ -190,4 +180,9 @@ query {
 .message {
   color: #42b983;
 }
+
+.container {
+  padding: 0;
+}
+
 </style>
