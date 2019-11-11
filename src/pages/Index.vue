@@ -1,6 +1,5 @@
 <template>
   <Layout>
-    {{initialize()}}
     <v-layout wrap>
       <v-flex xs12>
         <h1>コンテンツ一覧</h1>
@@ -98,19 +97,10 @@ export default {
     summaryTitle: function(text) {
       return this.shortenText(23, text);
     },
-
-    getCurrentPage: function() {
-      this.$data.currentPage = this.$page.allContentfulBlog.pageInfo.currentPage;
-    },
-    getTotalPages: function() {
+  },
+  created () {
+    this.$data.currentPage = this.$page.allContentfulBlog.pageInfo.currentPage;
       this.$data.totalPages = this.$page.allContentfulBlog.pageInfo.totalPages;
-    },
-    initialize: function() {
-      this.getCurrentPage();
-      this.getTotalPages();
-    },
-
-    currentPageUrl: function() {}
   },
   computed: {
     cardHeight: function() {
