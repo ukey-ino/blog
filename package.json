@@ -19,6 +19,8 @@
     "vuetify": "^1.5.16"
   },
   "devDependencies": {
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
     "webpack-node-externals": "^1.7.2"
   }
 }
