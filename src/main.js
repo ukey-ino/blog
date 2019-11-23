@@ -7,20 +7,27 @@ import DefaultLayout from '~/layouts/Default.vue'
 
 import VueMarkdown from 'vue-markdown'
 
-export default function (Vue, { router, head, isClient }) {
+export default function (Vue, { appOptions, router, head, isClient }) {
 
   head.htmlAttrs = {
     prefix: 'og: http://ogp.me/ns#'
   }
   
+  // For Vuetify
   head.link.push({
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
   })
-  
+  const opts = {
+    theme: {
+      dark: true
+    }
+  }
   Vue.use(Vuetify)
+  appOptions.vuetify = new Vuetify(opts);
 
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
   Vue.component('vue-markdown', VueMarkdown)
+
 }

@@ -8,15 +8,18 @@
     "test": "echo 'No Test'",
     "change-dev-content": "cp -p .env.blog-development .env.development",
     "change-prod-content": "cp -p .env.blog-production .env.development",
-    "dev-develop": "yarn change-dev-content && yarn develop",
-    "prod-develop": "yarn change-prod-content && yarn develop"
+    "dev-develop": "yarn change-dev-content && yarn change-localurl&& yarn develop",
+    "prod-develop": "yarn change-prod-content && yarn change-localurl && yarn develop",
+    "change-localurl": "sed -i -e 's/SITE_URL = .*$/SITE_URL = http:\\/\\/localhost:8080\\/ /g' .env.development " 
   },
   "dependencies": {
     "@gridsome/source-contentful": "^0.4.0",
     "babel-runtime": "^6.26.0",
+    "file-loader": "^4.3.0",
     "gridsome": "^0.6.7",
+    "url-loader": "^2.3.0",
     "vue-markdown": "^2.2.4",
-    "vuetify": "^1.5.16"
+    "vuetify": "2.1.11"
   },
   "devDependencies": {
     "node-sass": "^4.13.0",
