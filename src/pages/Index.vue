@@ -200,7 +200,7 @@ query {
 </static-query>
 
 
-<style>
+<style lang="scss">
 .message {
   color: #42b983;
 }
