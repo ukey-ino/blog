@@ -3,7 +3,12 @@
     <v-layout wrap>
       <v-flex xs12>
         <h1>コンテンツ一覧</h1>
-        <v-pagination v-model="currentPage" :length="totalPages" />
+        <v-pagination
+          v-model="currentPage"
+          :length="totalPages"
+          prev-icon="navigate_before"
+          next-icon="navigate_next"
+        ></v-pagination>
       </v-flex>
       <v-container grid-list-md fluid>
         <transition-group
@@ -35,14 +40,19 @@
                 </v-card-title>
                 <v-spacer />
                 <v-card-actions>
-                  <v-btn flat color="orange" :to="edge.node.path">詳細</v-btn>
+                  <v-btn text color="orange" :to="edge.node.path">詳細</v-btn>
                 </v-card-actions>
               </v-layout>
             </v-card>
           </v-flex>
         </transition-group>
       </v-container>
-      <v-pagination v-model="currentPage" :length="totalPages" />
+      <v-pagination
+        v-model="currentPage"
+        :length="totalPages"
+        prev-icon="navigate_before"
+        next-icon="navigate_next"
+      ></v-pagination>
     </v-layout>
   </Layout>
 </template>

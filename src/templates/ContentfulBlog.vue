@@ -4,7 +4,7 @@
       <v-container>
         <v-layout>
           <v-flex xs12>
-            <v-btn v-on:click="goToIndex">
+            <v-btn v-on:click="goToIndex" class="my-2">
               <v-icon>arrow_back</v-icon>
               <div class="hidden-sm-and-down">一覧に戻る</div>
             </v-btn>
@@ -22,7 +22,7 @@
               </v-card-text>
             </v-card>
 
-            <v-btn v-on:click="goToIndex">
+            <v-btn v-on:click="goToIndex" class="my-2">
               <v-icon>arrow_back</v-icon>
               <div class="hidden-sm-and-down">一覧に戻る</div>
             </v-btn>
