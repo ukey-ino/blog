@@ -3,34 +3,56 @@
     <v-layout wrap>
       <v-flex xs12>
         <h1>コンテンツ一覧</h1>
-        <v-pagination v-model="currentPage" :length="totalPages" />
+        <v-pagination
+          v-model="currentPage"
+          :length="totalPages"
+          prev-icon="navigate_before"
+          next-icon="navigate_next"
+        ></v-pagination>
       </v-flex>
       <v-container grid-list-md fluid>
-        <v-layout ma-1 row wrap>
-          <v-flex xs12 md4 v-for="edge in $page.allContentfulBlog.edges" :key="edge.id">
-            <v-card :height="cardHeight">
+        <transition-group
+          appear
+          tag="div"
+          name="list"
+          class="layout ma-1 row wrap"
+          @before-enter="beforeEnter"
+          @after-enter="afterEnter"
+          @enter-cancelled="afterEnter"
+        >
+          <v-flex
+            xs12
+            md4
+            v-for="(edge, index) in $page.allContentfulBlog.edges"
+            :key="edge.node.id"
+            :data-index="index"
+          >
+            <v-card :height="cardHeight" transition="slide-x-transition">
               <v-layout column fill-height>
                 <v-img aspect-ratio="7" max-height="50px" lazy-src :src="coverUrl(edge.node.cover)"></v-img>
-
                 <v-card-title>
                   <div>
                     <h3 class="headline mb-0">{{ summaryTitle(edge.node.title) }}</h3>
                     <span class="grey--text">created at {{ edge.node.createdate }}</span>
-                    <div v-show="isMobileView" >{{ summaryMobileView(edge.node.content) }}</div>
-                    <div v-show="isLargeView" >{{ summaryLargeView(edge.node.content) }}</div>
+                    <div v-show="isMobileView">{{ summaryMobileView(edge.node.content) }}</div>
+                    <div v-show="isLargeView">{{ summaryLargeView(edge.node.content) }}</div>
                   </div>
                 </v-card-title>
-
                 <v-spacer />
                 <v-card-actions>
-                  <v-btn flat color="orange" :to="edge.node.path">詳細</v-btn>
+                  <v-btn text color="orange" :to="edge.node.path">詳細</v-btn>
                 </v-card-actions>
               </v-layout>
             </v-card>
           </v-flex>
-        </v-layout>
+        </transition-group>
       </v-container>
-      <v-pagination v-model="currentPage" :length="totalPages" />
+      <v-pagination
+        v-model="currentPage"
+        :length="totalPages"
+        prev-icon="navigate_before"
+        next-icon="navigate_next"
+      ></v-pagination>
     </v-layout>
   </Layout>
 </template>
@@ -66,6 +88,11 @@ export default {
       ]
     };
   },
+  data: () => ({
+    currentPage: 1,
+    totalPages: 1,
+    show: true
+  }),
   components: {
     Pager
   },
@@ -97,34 +124,41 @@ export default {
     summaryTitle: function(text) {
       return this.shortenText(23, text);
     },
+
+    beforeEnter: function(el) {
+      el.style.transitionDelay = 100 * parseInt(el.dataset.index, 10) + "ms";
+    },
+    afterEnter: function(el) {
+      el.style.transitionDelay = "";
+    }
   },
-  created () {
+  created() {
     this.$data.currentPage = this.$page.allContentfulBlog.pageInfo.currentPage;
-      this.$data.totalPages = this.$page.allContentfulBlog.pageInfo.totalPages;
+    this.$data.totalPages = this.$page.allContentfulBlog.pageInfo.totalPages;
   },
   computed: {
     cardHeight: function() {
       switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return '300px'
-          case 'sm': return '300px'
-          case 'md': return '350px'
-          case 'lg': return '350px'
-          case 'xl': return '350px'
-        }
+        case "xs":
+          return "300px";
+        case "sm":
+          return "300px";
+        case "md":
+          return "350px";
+        case "lg":
+          return "350px";
+        case "xl":
+          return "350px";
+      }
     },
     isMobileView: function() {
       return this.$vuetify.breakpoint.smAndDown;
     },
     isLargeView: function() {
       return this.$vuetify.breakpoint.mdAndUp;
-    },
+    }
   },
-  data: () => ({
-    currentPage: 1,
-    totalPages: 1
-  }),
   watch: {
-    $route: "initialize",
     currentPage: function(newNumber) {
       let pathToGo = "/";
       if (newNumber != 1) {
@@ -176,7 +210,7 @@ query {
 </static-query>
 
 
-<style>
+<style lang="scss">
 .message {
   color: #42b983;
 }
@@ -185,4 +219,12 @@ query {
   padding: 0;
 }
 
+.list-enter-active {
+  transition: all 1s ease;
+}
+.list-enter,
+.list-leave-to {
+  transform: translateX(100px);
+  opacity: 0;
+}
 </style>
