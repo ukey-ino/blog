@@ -10,7 +10,7 @@ executors:
     working_directory: ~/workspace
     docker:
       # 開発環境に合わせること
-      - image: circleci/node:12
+      - image: circleci/node:12.14
 
   for_awss3_orbs:
     # awss3 orbs用
