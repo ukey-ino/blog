@@ -8,7 +8,7 @@
     "test": "echo 'No Test'",
     "change-dev-content": "cp -p .env.blog-development .env.development",
     "change-prod-content": "cp -p .env.blog-production .env.development",
-    "dev-develop": "yarn change-dev-content && yarn change-localurl&& yarn develop",
+    "dev-develop": "yarn change-dev-content && yarn change-localurl && yarn develop",
     "prod-develop": "yarn change-prod-content && yarn change-localurl && yarn develop",
     "change-localurl": "sed -i -e 's/SITE_URL = .*$/SITE_URL = http:\\/\\/localhost:8080\\/ /g' .env.development " 
   },
