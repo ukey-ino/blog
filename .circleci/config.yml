@@ -10,7 +10,7 @@ executors:
     working_directory: ~/workspace
     docker:
       # 開発環境に合わせること
-      - image: circleci/node:12.14
+      - image: circleci/node:12
 
   for_awss3_orbs:
     # awss3 orbs用
@@ -69,7 +69,9 @@ jobs:
             rm static/robots.txt-development static/robots.txt-production
       - run:
           name: Build
-          command: yarn build
+          command: |
+            node --version
+            yarn build
       
       - run:
           name: Check dist
@@ -126,11 +128,7 @@ workflows:
     jobs:
 
       - setup:
-          filters:
-            branches:
-              only: 
-                - release
-                - master
+          name: setup
 
       - build:
           name: build_dev
@@ -139,7 +137,7 @@ workflows:
             - setup
           filters:
             branches:
-              only: release
+              ignore: master
 
       - build:
           name: build_prod
