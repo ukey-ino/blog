@@ -23,14 +23,14 @@ commands:
     steps:
       - restore_cache:
           keys: 
-            - yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}-<< pipeline.number >>
 
   save_node-modules:
     steps:
       - save_cache:
           paths:
             - node_modules
-          key: yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}-<< pipeline.number >>
 
 orbs:
   aws-s3: circleci/aws-s3@1.0.0
