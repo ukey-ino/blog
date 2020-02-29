@@ -1,35 +1,10 @@
 <template>
   <div class="bg">
     <v-app id="inspire">
-      <v-app-bar class="v-app-bar__style">
-        <v-app-bar-nav-icon @click.stop="visibleNav = !visibleNav">
-          <v-icon>menu</v-icon>
-        </v-app-bar-nav-icon>
-        <v-toolbar-title>{{ $static.metaData.siteName }}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn text to="/">
-          <v-icon>home</v-icon>
-          <div class="hidden-sm-and-down">&nbsp; Home</div>
-        </v-btn>
-      </v-app-bar>
-      <v-navigation-drawer v-model="visibleNav" absolute temporary>
-        <v-list>
-          <v-subheader>最近の投稿</v-subheader>
-          <v-list-item-group>
-            <v-list-item
-              v-for="edge in $static.allContentfulBlog.edges"
-              :key="edge.id"
-              link
-              :to="edge.node.path"
-            >
-              <v-list-item-content>
-                <v-list-item-title>{{ edge.node.title }}</v-list-item-title>
-                <v-list-item-subtitle>{{ edge.node.createdate }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
+      <Header
+        :title="$static.metaData.siteName"
+        :recent-posts="$static.allContentfulBlog.edges">
+      </Header>
       <v-container fluid>
         <slot />
       </v-container>
@@ -40,8 +15,7 @@
 <static-query>
 query {
   metaData {
-    siteName,
-    siteUrl
+    siteName
   },
   allContentfulBlog( sortBy: "createdate", order: DESC, limit: 5 ) {
     edges {
@@ -57,10 +31,17 @@ query {
 </static-query>
 
 <script>
+import Header from '../components/Header.vue'
+
 export default {
-  data: () => ({
-    visibleNav: false
-  })
+  components: {
+    Header
+  },
+
+  data() {
+    return {
+    }
+  },
 };
 </script>
 
@@ -93,9 +74,7 @@ body {
 }
 
 .bg {
-  background-image: url("~@/assets/images/site_background.gif");
-  background-size: contain;
-  background-repeat: repeat;
+  background-color: #E2E0EB;
 }
 
 #inspire {
@@ -105,4 +84,9 @@ body {
 .v-app-bar__style {
   max-height: 56px;
 }
+
+.text-color {
+  color: #968BB6;
+}
+
 </style>
