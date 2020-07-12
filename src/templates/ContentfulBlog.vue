@@ -5,26 +5,26 @@
         <v-layout>
           <v-flex xs12>
             <v-btn v-on:click="goToIndex" class="my-2">
-              <v-icon>arrow_back</v-icon>
-              <div class="hidden-sm-and-down">一覧に戻る</div>
+              <v-icon color="#968BB6">arrow_back</v-icon>
+              <div class="hidden-sm-and-down text-color">一覧に戻る</div>
             </v-btn>
-  
-            <v-card>
+            <br><br>
+            <v-card class="card">
               <v-card-text>
-                <h1>{{ $page.contentfulBlog.title }}</h1>
+                <h1 class="text-color">{{ $page.contentfulBlog.title }}</h1>
                 <span class="grey--text">created at {{ $page.contentfulBlog.createdate }}</span>
                 <div>
-                  <g-image :src="coverUrl($page.contentfulBlog.cover)" />
+                  <g-image class="responsive" :src="coverUrl($page.contentfulBlog.cover)" />
                   <p>
-                    <vue-markdown :source="$page.contentfulBlog.content"></vue-markdown>
+                    <vue-markdown class="text-color" :source="$page.contentfulBlog.content"></vue-markdown>
                   </p>
                 </div>
               </v-card-text>
             </v-card>
-
+            <br><br>
             <v-btn v-on:click="goToIndex" class="my-2">
-              <v-icon>arrow_back</v-icon>
-              <div class="hidden-sm-and-down">一覧に戻る</div>
+              <v-icon color="#968BB6">arrow_back</v-icon>
+              <div class="hidden-sm-and-down text-color">一覧に戻る</div>
             </v-btn>
 
           </v-flex>
@@ -55,7 +55,7 @@ export default {
     coverUrl: function(coverContent) {
       if (coverContent) {
         // TODO: resized by fixed width now.
-        return "https:" + coverContent.file.url + "?w=200";
+        return "https:" + coverContent.file.url;
       }
       // TODO: reference local file
       return "https://placehold.it/150x150.png";
@@ -105,3 +105,19 @@ query {
   }
 }
 </static-query>
+
+<style scoped>
+
+.card {
+  background-color: #E2E0EB;
+  box-shadow: 20px 20px 60px #c0bec8,
+              -20px -20px 60px #ffffff;
+}
+
+
+.responsive {
+  max-width: 60%;
+  min-width: 200px;
+}
+
+</style>

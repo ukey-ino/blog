@@ -20,7 +20,7 @@ export default function (Vue, { appOptions, router, head, isClient }) {
   })
   const opts = {
     theme: {
-      dark: true
+      dark: false
     }
   }
   Vue.use(Vuetify)
