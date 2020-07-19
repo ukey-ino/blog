@@ -2,7 +2,7 @@
   <div class="bg">
     <v-app id="inspire">
       <Header
-        :title="$static.metaData.siteName"
+        :title="$static.metadata.siteName"
         :recent-posts="$static.allContentfulBlog.edges">
       </Header>
       <v-container fluid>
@@ -14,7 +14,7 @@
 
 <static-query>
 query {
-  metaData {
+  metadata {
     siteName
   },
   allContentfulBlog( sortBy: "createdate", order: DESC, limit: 5 ) {

@@ -19,5 +19,13 @@ module.exports = {
         typeName: 'Contentful'
       }
 	  }
-  ]
+  ],
+  templates: {
+    ContentfulBlog: [
+      {
+        path: "/blog/:slug",
+        component: "./src/templates/ContentfulBlog.vue",
+      }
+    ]
+  }
 }
