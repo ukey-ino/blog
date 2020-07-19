@@ -41,12 +41,12 @@ export default {
       title: this.$page.contentfulBlog.title,
       meta: [
         { name: 'og:type', content: 'article'},
-        { name: 'og:title', content: this.$static.metaData.siteName },
+        { name: 'og:title', content: this.$static.metadata.siteName },
         { name: 'og:description', content: this.$page.contentfulBlog.title },
         { name: 'og:url', 
-          content: this.$static.metaData.siteUrl + "/blog/" + this.$page.contentfulBlog.slug },
-        { name: 'og:site_url', content: this.$static.metaData.siteUrl },
-        { name: 'og:image', content: this.$static.metaData.siteUrl + "images/site_image.jpg"},
+          content: this.$static.metadata.siteUrl + "/blog/" + this.$page.contentfulBlog.slug },
+        { name: 'og:site_url', content: this.$static.metadata.siteUrl },
+        { name: 'og:image', content: this.$static.metadata.siteUrl + "images/site_image.jpg"},
         { name: 'twitter:card', content: 'summary'}
       ]
     }
@@ -98,7 +98,7 @@ export default {
 
 <static-query>
 query {
-  metaData {
+  metadata {
     siteName
     siteDescription
     siteUrl
