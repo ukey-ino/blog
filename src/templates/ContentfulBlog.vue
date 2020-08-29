@@ -14,7 +14,7 @@
                 <h1 class="text-color">{{ $page.contentfulBlog.title }}</h1>
                 <span class="grey--text">created at {{ $page.contentfulBlog.createdate }}</span>
                 <div>
-                  <g-image class="responsive" :src="coverUrl($page.contentfulBlog.cover)" />
+                  <g-image class="responsive" :src="coverUrl($page.contentfulBlog.coverid, $static.metadata.siteStatus, $static.metadata.cdnUrl)" />
                   <p>
                     <vue-markdown class="text-color" :source="$page.contentfulBlog.content"></vue-markdown>
                   </p>
@@ -46,19 +46,19 @@ export default {
         { name: 'og:url', 
           content: this.$static.metadata.siteUrl + "/blog/" + this.$page.contentfulBlog.slug },
         { name: 'og:site_url', content: this.$static.metadata.siteUrl },
-        { name: 'og:image', content: this.$static.metadata.siteUrl + "images/site_image.jpg"},
+        { name: 'og:image', content: this.$static.metadata.siteUrl + "/images/site_image.jpg"},
         { name: 'twitter:card', content: 'summary'}
       ]
     }
   },
   methods: {
-    coverUrl: function(coverContent) {
-      if (coverContent) {
+    coverUrl: function(contentId, siteStatus, cdnUrl) {
+      if (contentId) {
         // TODO: resized by fixed width now.
-        return "https:" + coverContent.file.url;
+        return cdnUrl + "/" + siteStatus + "/" + contentId + ".png";
       }
       // TODO: reference local file
-      return "https://placehold.it/150x150.png";
+      return "/images/article/No-Image.png";
     },
 
     goToIndex: function() {
@@ -90,6 +90,7 @@ export default {
           url
         }
       }
+      coverid
       createdate(format: "YYYY.MM.DD", locale: "ja")
       date(format: "YYYY.MM.DD", locale: "ja")
     }
@@ -102,6 +103,8 @@ query {
     siteName
     siteDescription
     siteUrl
+    siteStatus
+    cdnUrl
   }
 }
 </static-query>
