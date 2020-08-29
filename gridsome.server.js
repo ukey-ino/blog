@@ -21,5 +21,7 @@ module.exports = function (api) {
 
   api.loadSource(store => {
     // Use the Data store API here: https://gridsome.org/docs/data-store-api
+    store.addMetadata('siteStatus', process.env.SITE_STATUS);
+    store.addMetadata('cdnUrl', process.env.CDN_URL);
   })
 }

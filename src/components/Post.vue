@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       title: "Title",
-      imageUrl: "https://placehold.it/150x150.png?text=NoImage",
+      imageUrl: null,
       createdAt: "2020-01-01",
       abstract: "Abstarct",
       linkTo: ""
