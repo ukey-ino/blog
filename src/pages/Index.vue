@@ -46,12 +46,12 @@ export default {
       for (let i = 0 ; i < this.$page.allContentfulBlog.edges.length ; i++ ) {
         this.$data.dataObjs.push({
           title: this.$page.allContentfulBlog.edges[i].node.title,
-          imageUrl: (function(content) {
-            if(content) {
-              return "https:" + content.file.url + "?w=200";
+          imageUrl: (function(contentId, siteStatus, cdnUrl) {
+            if(contentId) {
+              return cdnUrl + "/" + siteStatus + "/" + contentId + ".png";
             }
-            return "https://placehold.it/150x150.png?text=NoImage";
-          })(this.$page.allContentfulBlog.edges[i].node.cover),
+            return "/images/article/No-Image.png";
+          })(this.$page.allContentfulBlog.edges[i].node.coverid, this.$page.metadata.siteStatus, this.$page.metadata.cdnUrl),
           createdAt: this.$page.allContentfulBlog.edges[i].node.createdate,
           abstract: this.$page.allContentfulBlog.edges[i].node.content,
           linkTo: this.$page.allContentfulBlog.edges[i].node.path,
@@ -99,11 +99,16 @@ query Blog ( $page: Int) {
           file {
             url
           }
-        }
+        },
+        coverid
         createdate( format: "YYYY.MM.DD" )
         date( format: "YYYY.MM.DD", locale: "ja" )
       }
     }
+  }
+  metadata {
+    siteStatus,
+    cdnUrl
   }
 }
 </page-query>
