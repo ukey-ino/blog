@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click.stop="visibleNav = !visibleNav">
         <v-icon color="#968BB6">menu</v-icon>
       </v-app-bar-nav-icon>
-      <v-toolbar-title class="text-color">{{ title }}</v-toolbar-title>
+        <v-toolbar-title class="text-color" v-on:click="goToHome">{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text to="/">
         <v-icon color="#968BB6">home</v-icon>
@@ -49,6 +49,14 @@ export default {
   data() {
     return {
       visibleNav: false
+    }
+  },
+
+  methods: {
+    goToHome: function() {
+      this.$router.push({
+        path: "/"
+      });
     }
   }
 }
