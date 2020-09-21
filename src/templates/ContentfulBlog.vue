@@ -19,6 +19,19 @@
                     <vue-markdown class="text-color" :source="$page.contentfulBlog.content"></vue-markdown>
                   </p>
                 </div>
+                <div>
+                  <v-chip
+                    v-for="(tag, idx) in $page.contentfulBlog.tags"
+                    :key="idx"
+                    :href="tagUrl(tag)"
+                    :link="true"
+                    text-color="#968BB6"
+                    color="#d1cdde"
+                  >
+                  <v-icon left>label</v-icon>
+                  {{tag}}
+                  </v-chip>
+                </div>
               </v-card-text>
             </v-card>
             <br><br>
@@ -26,7 +39,6 @@
               <v-icon color="#968BB6">arrow_back</v-icon>
               <div class="hidden-sm-and-down text-color">一覧に戻る</div>
             </v-btn>
-
           </v-flex>
         </v-layout>
       </v-container>
@@ -64,6 +76,10 @@ export default {
     goToIndex: function() {
       let goTo = this.referer;
       this.$router.push({ path: goTo });
+    },
+
+    tagUrl: function(tag) {
+      return "/list-tag/" + tag + "/1"
     }
   },
   data: () => ({
@@ -93,6 +109,7 @@ export default {
       coverid
       createdate(format: "YYYY.MM.DD", locale: "ja")
       date(format: "YYYY.MM.DD", locale: "ja")
+      tags
     }
   }
 </page-query>
