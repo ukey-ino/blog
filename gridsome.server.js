@@ -48,15 +48,16 @@ module.exports = function (api) {
 
     allTags.forEach(async(tag) => {
 
-      const tagMetadata = await graphql(`{
-        allContentfulBlog(filter: {
-          tags: {
-            contains: [ "${tag}" ]
+      const tagMetadata = await graphql(`
+        query retrieveTag($tagStr: String!){
+          allContentfulBlog(filter: {
+            tags: {
+              contains: [$tagStr]
+            }
+          }) {
+            totalCount
           }
-        }) {
-          totalCount
-        }
-      }`);
+        }`, {tagStr: tag});
       
       const totalCountTaggedArticle = tagMetadata.data.allContentfulBlog.totalCount;
 
