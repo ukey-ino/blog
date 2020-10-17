@@ -11,12 +11,18 @@ executors:
     docker:
       # 開発環境に合わせること
       - image: circleci/node:12
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWD
 
   for_awss3_orbs:
     # awss3 orbs用
     working_directory: ~/workspace
     docker:
       - image: circleci/python:2.7
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWD
 
 commands:
   restore_node-modules:
