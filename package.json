@@ -10,13 +10,13 @@
     "change-prod-content": "cp -p .env.blog-production .env.development",
     "dev-develop": "yarn change-dev-content && yarn change-localurl && yarn develop",
     "prod-develop": "yarn change-prod-content && yarn change-localurl && yarn develop",
-    "change-localurl": "sed -i -e 's/SITE_URL = .*$/SITE_URL = http:\\/\\/localhost:8080\\/ /g' .env.development " 
+    "change-localurl": "sed -i -e 's/SITE_URL = .*$/SITE_URL = http:\\/\\/localhost:8080\\/ /g' .env.development "
   },
   "dependencies": {
     "@gridsome/source-contentful": "^0.5.3",
     "babel-runtime": "^6.26.0",
     "file-loader": "^4.3.0",
-    "gridsome": "^0.7.19",
+    "gridsome": "^0.7.23",
     "url-loader": "^2.3.0",
     "vue-markdown": "^2.2.4",
     "vuetify": "2.1.11"
