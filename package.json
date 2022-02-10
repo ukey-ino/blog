@@ -22,7 +22,7 @@
     "vuetify": "2.1.11"
   },
   "devDependencies": {
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^8.0.0",
     "webpack-node-externals": "^1.7.2"
   }
